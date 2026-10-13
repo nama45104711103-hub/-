@@ -19,6 +19,7 @@ export function JellyfishArt({ color, accent, className }: Props) {
   return (
     <svg
       viewBox="0 0 120 168"
+      preserveAspectRatio="xMidYMid meet"
       role="img"
       aria-hidden="true"
       className={className}
