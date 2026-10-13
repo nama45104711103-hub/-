@@ -2,11 +2,7 @@
 
 import { useMemo, useState, useSyncExternalStore } from "react";
 
-import {
-  FeaturedJellyfishCard,
-  JellyfishCard,
-  JellyfishRow,
-} from "@/components/JellyfishCard";
+import { FeaturedJellyfishCard, JellyfishCard } from "@/components/JellyfishCard";
 import { normalizeHex, readableTextColor } from "@/lib/color";
 import {
   addHistoryColor,
@@ -27,7 +23,6 @@ export default function Home() {
   const [input, setInput] = useState("");
   const [color, setColor] = useState<ResolvedColor | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [showAll, setShowAll] = useState(false);
   const history = useSyncExternalStore(
     subscribeHistory,
     getHistorySnapshot,
@@ -37,7 +32,6 @@ export default function Home() {
   const ranked = useMemo(() => (color ? rankJellyfish(color.hex) : []), [color]);
   const top = ranked[0];
   const runnersUp = ranked.slice(1, 3);
-  const others = ranked.slice(3);
 
   function search(raw: string) {
     const resolved = resolveColor(raw);
@@ -53,7 +47,6 @@ export default function Home() {
 
     setError(null);
     setColor(resolved);
-    setShowAll(false);
     addHistoryColor(resolved.hex);
   }
 
@@ -231,42 +224,6 @@ export default function Home() {
             </section>
           ) : null}
 
-          {others.length > 0 ? (
-            <section className="rounded-2xl bg-white/[0.06] ring-1 ring-white/10">
-              <h2>
-                <button
-                  type="button"
-                  onClick={() => setShowAll((prev) => !prev)}
-                  aria-expanded={showAll}
-                  aria-controls="other-ranking"
-                  className={`flex min-h-14 w-full items-center justify-between gap-3 rounded-2xl px-5 py-4 text-left text-base font-semibold transition-colors hover:bg-white/5 ${FOCUS_RING}`}
-                >
-                  <span>
-                    4〜{ranked.length}位を{showAll ? "閉じる" : "見る"}
-                  </span>
-                  <span aria-hidden="true" className="text-white/70">
-                    {showAll ? "▲" : "▼"}
-                  </span>
-                </button>
-              </h2>
-              {showAll ? (
-                <div id="other-ranking" className="border-t border-white/10 px-5 pt-3 pb-4">
-                  <p className="pb-1 text-[0.8125rem] text-white/70">
-                    右端の数字は色の近さ（0〜100点）です。
-                  </p>
-                  <ul className="divide-y divide-white/10">
-                    {others.map((match, index) => (
-                      <JellyfishRow
-                        key={match.jellyfish.id}
-                        match={match}
-                        rank={index + 4}
-                      />
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-            </section>
-          ) : null}
         </div>
       ) : (
         <div className="mx-auto w-full max-w-[740px]">
