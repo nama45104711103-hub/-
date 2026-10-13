@@ -1,7 +1,7 @@
 import { readableTextColor } from "@/lib/color";
 import type { JellyfishMatch } from "@/lib/match";
 
-import { JellyfishArt } from "./JellyfishArt";
+import { JellyfishPhoto } from "./JellyfishPhoto";
 
 /** 入力した色とクラゲの色を並べる1枚分の色見本。 */
 function Swatch({ hex, label }: { hex: string; label: string }) {
@@ -18,24 +18,28 @@ function Swatch({ hex, label }: { hex: string; label: string }) {
   );
 }
 
-/** クラゲのイラストを縦横比を保ったまま枠に収める。 */
+/** クラゲの写真を縦横比3:4の枠に収める。画像が無い場合はイラストに戻る。 */
 function ArtFrame({
+  id,
+  name,
   color,
   accent,
   className,
-  padding = "p-3",
+  sizes,
 }: {
+  id: string;
+  name: string;
   color: string;
   accent: string;
   className?: string;
-  padding?: string;
+  sizes: string;
 }) {
   return (
     <div
-      className={`aspect-[3/4] rounded-2xl bg-black/25 ring-1 ring-white/10 ${padding} ${className ?? ""}`}
-      style={{ boxShadow: `0 0 60px -20px ${accent}` }}
+      className={`relative aspect-[3/4] overflow-hidden rounded-2xl bg-black/25 ring-1 ring-white/10 ${className ?? ""}`}
+      style={{ boxShadow: `0 0 60px -22px ${accent}` }}
     >
-      <JellyfishArt color={color} accent={accent} className="h-full w-full" />
+      <JellyfishPhoto id={id} name={name} color={color} accent={accent} sizes={sizes} />
     </div>
   );
 }
@@ -60,9 +64,12 @@ export function FeaturedJellyfishCard({
 
       <div className="mt-5 flex flex-col gap-6 sm:mt-6 sm:flex-row sm:gap-8">
         <ArtFrame
+          id={jellyfish.id}
+          name={jellyfish.name}
           color={jellyfish.hex}
           accent={jellyfish.accent}
           className="mx-auto w-full max-w-[220px] shrink-0 sm:mx-0 sm:w-[240px] sm:max-w-none"
+          sizes="(min-width: 640px) 240px, 220px"
         />
 
         <div className="min-w-0 flex-1">
@@ -136,10 +143,12 @@ export function JellyfishCard({
   return (
     <article className="flex gap-4 rounded-2xl bg-white/[0.06] p-4 ring-1 ring-white/10 sm:gap-5 sm:p-5">
       <ArtFrame
+        id={jellyfish.id}
+        name={jellyfish.name}
         color={jellyfish.hex}
         accent={jellyfish.accent}
         className="w-24 shrink-0 self-start sm:w-28"
-        padding="p-2"
+        sizes="(min-width: 640px) 112px, 96px"
       />
 
       <div className="min-w-0 flex-1">

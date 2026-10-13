@@ -288,6 +288,9 @@ export default function Home() {
         <p className="mt-2">
           色の近さは CIELAB 色空間での色差（ΔE）から計算しています。
         </p>
+        <p className="mt-2">
+          掲載しているクラゲの画像は、生成AIで作成したイメージです。実際の個体の写真ではありません。
+        </p>
       </footer>
     </main>
   );
