@@ -1,13 +1,18 @@
-# app-starter
+# クラゲカラーファインダー
 
-個人開発用のスターターテンプレート。
+好きな色を入力すると、その色に近い色のクラゲを探すアプリ。
 
-## このテンプレートから新しいアプリを作る手順
+- 色名（水色、ピンク、金色、透明など）と色コード（`#7fcce3`）の両方で検索できる
+- CIELAB 色空間の色差（ΔE）で全 25 種を近い順に並べ、近さを 0〜100 点で表示する
+- 試した色はブラウザの localStorage に最大 8 件残る
 
-1. GitHubで「Use this template」を押して新しいリポジトリを作る
-2. `src/app/layout.tsx` の `metadata` の title と description を書き換える
-3. `README.md` のこの説明を、作るアプリの説明に書き換える
-4. Vercelで新しいリポジトリを連携してデプロイする
-5. Claude Codeに作りたい機能を1行で指示する
+## 開発
+
+```bash
+npm install
+npm run dev      # 開発サーバー
+npm run test     # 色の計算とマッチングのテスト
+npm run verify   # 型チェック + テスト + ビルド
+```
 
 開発ルールは `CLAUDE.md` に書いてある。

@@ -3,8 +3,9 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "TODO: アプリ名",
-  description: "TODO: 説明",
+  title: "クラゲカラーファインダー",
+  description:
+    "好きな色を入力すると、その色に近い色のクラゲを探します。色名でも色コードでも検索できます。",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
