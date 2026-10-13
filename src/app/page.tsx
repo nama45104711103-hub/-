@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState, useSyncExternalStore } from "react";
 
 import { FeaturedJellyfishCard, JellyfishCard } from "@/components/JellyfishCard";
@@ -247,6 +248,11 @@ export default function Home() {
         </p>
         <p className="mt-2">
           掲載しているクラゲの画像は、生成AIで作成したイメージです。実際の個体の写真ではありません。
+        </p>
+        <p className="mt-3">
+          <Link href="/privacy" className="underline transition-colors hover:text-white">
+            プライバシーポリシー
+          </Link>
         </p>
       </footer>
     </main>
